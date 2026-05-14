@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Float, Text } from '@react-three/drei'
+import { Float, Text, useTexture } from '@react-three/drei'
+import { LinearFilter, SRGBColorSpace } from 'three'
 import type { Group, Mesh } from 'three'
+import profilePhoto from '../assets/photo1.jpeg'
 
 function MonitorRig() {
   const groupRef = useRef<Group>(null)
@@ -76,6 +78,16 @@ function MonitorRig() {
 function HologramProfile() {
   const ringRef = useRef<Mesh>(null)
   const coreRef = useRef<Group>(null)
+  const profileTexture = useTexture(profilePhoto)
+
+  useEffect(() => {
+    profileTexture.colorSpace = SRGBColorSpace
+    profileTexture.minFilter = LinearFilter
+    profileTexture.magFilter = LinearFilter
+    profileTexture.repeat.set(0.72, 0.72)
+    profileTexture.offset.set(0.14, 0.14)
+    profileTexture.needsUpdate = true
+  }, [profileTexture])
 
   useFrame(({ clock }) => {
     const time = clock.elapsedTime
@@ -97,6 +109,14 @@ function HologramProfile() {
         <mesh castShadow>
           <sphereGeometry args={[0.55, 48, 48]} />
           <meshStandardMaterial color="#0d1b2d" emissive="#22d3ee" emissiveIntensity={0.34} metalness={0.7} roughness={0.18} />
+        </mesh>
+        <mesh position={[0, 0, 0.57]} castShadow>
+          <circleGeometry args={[0.76, 128]} />
+          <meshBasicMaterial map={profileTexture} toneMapped={false} />
+        </mesh>
+        <mesh position={[0, 0, 0.585]}>
+          <torusGeometry args={[0.775, 0.022, 16, 128]} />
+          <meshBasicMaterial color="#a5f3fc" transparent opacity={0.86} />
         </mesh>
         <mesh position={[0, -0.74, 0]} castShadow>
           <capsuleGeometry args={[0.48, 0.72, 12, 24]} />
@@ -122,10 +142,10 @@ function FloatingPanels() {
   return (
     <group>
       {[
-        [-2.35, 1.25, 0.35, 'React'],
-        [2.24, 0.9, 0.25, 'R3F'],
-        [-2.05, -0.55, 0.5, 'Figma'],
-        [2.25, -0.7, 0.55, 'TypeScript'],
+        [-1.85, 1.2, 0.35, 'React'],
+        [1.78, 0.85, 0.25, 'R3F'],
+        [-1.72, -0.55, 0.5, 'Figma'],
+        [1.62, -0.68, 0.55, 'TypeScript'],
       ].map(([x, y, z, label], index) => (
         <Float key={label} floatIntensity={1.3} rotationIntensity={0.45} speed={1.1 + index * 0.16}>
           <group position={[x, y, z]} rotation={[0.08, index % 2 ? -0.34 : 0.34, 0]}>

@@ -265,8 +265,8 @@ canvas {
 
   .profile-core {
     display: grid;
-    width: 8rem;
-    height: 8rem;
+    width: 11rem;
+    height: 11rem;
     place-items: center;
     border: 1px solid rgba(125, 211, 252, 0.5);
     border-radius: 999px;
@@ -277,6 +277,15 @@ canvas {
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.2),
       0 0 80px rgba(34, 211, 238, 0.2);
+    overflow: hidden;
+  }
+
+  .profile-core img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 32%;
+    filter: contrast(1.04) saturate(1.08);
   }
 
   .profile-orbit {

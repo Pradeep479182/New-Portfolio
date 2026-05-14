@@ -7,6 +7,7 @@ import { Background } from './components/Background'
 import { HeroScene } from './components/HeroScene'
 import { Projects } from './components/Projects'
 import { SkillsScene } from './components/SkillsScene'
+import profilePhoto from './assets/photo1.jpeg'
 
 const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Contact']
 
@@ -197,7 +198,9 @@ function About() {
         >
           <div className="profile-hologram">
             <div className="profile-orbit" />
-            <div className="profile-core">N</div>
+            <div className="profile-core">
+              <img src={profilePhoto} alt="Natpu profile" />
+            </div>
           </div>
           <h2 className="section-title mt-8">About Me</h2>
           <p className="mt-5 leading-8 text-slate-300">

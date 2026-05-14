@@ -50,7 +50,47 @@ function formatUpdated(date?: string) {
 }
 
 function repoImage(username: string, repo: Repo) {
-  return `https://opengraph.githubassets.com/pradeep-portfolio-${repo.id}/${username}/${repo.name}`
+  const forceLogo = Boolean(import.meta.env.VITE_FORCE_GITHUB_LOGO)
+
+  // Generate a simple ash-colored 3D-style SVG placeholder with repo name
+  function githubAshLogoSVG(name = '') {
+    const bg = '#0b0f14'
+    const ash = '#bfbfbf'
+    const gradient = 'linearGradient(0 0 100% 100%,%23cfcfcf 0,%23a9a9a9 100%)'
+    const label = name.replaceAll('-', ' ')
+    const svg = `
+      <svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'>
+        <defs>
+          <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
+            <stop offset='0' stop-color='%23d9d9d9' stop-opacity='1'/>
+            <stop offset='1' stop-color='%23a9a9a9' stop-opacity='1'/>
+          </linearGradient>
+          <filter id='f' x='-50%' y='-50%' width='200%' height='200%'>
+            <feGaussianBlur stdDeviation='18' result='b' />
+            <feBlend in='SourceGraphic' in2='b' mode='normal'/>
+          </filter>
+        </defs>
+        <rect width='1200' height='630' fill='${bg}' />
+        <g transform='translate(120,60)'>
+          <rect x='0' y='0' rx='28' ry='28' width='960' height='510' fill='url(%23g)' filter='url(%23f)' />
+          <g transform='translate(36,36)'>
+            <rect x='0' y='0' width='180' height='180' rx='24' fill='${ash}' opacity='0.95' />
+            <g transform='translate(24,24)'>
+              <rect x='0' y='0' width='120' height='120' rx='12' fill='${bg}' stroke='%23ffffff' stroke-opacity='0.06' />
+            </g>
+          </g>
+          <text x='260' y='120' font-family='Inter, Arial, sans-serif' font-size='56' fill='${ash}' font-weight='700'>${label}</text>
+          <text x='260' y='180' font-family='Inter, Arial, sans-serif' font-size='22' fill='%23e6e6e6' opacity='0.6'>3D ash logo / GitHub synced</text>
+        </g>
+      </svg>`
+
+    return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`
+  }
+
+  if (forceLogo) return githubAshLogoSVG(repo.name)
+
+  // prefer previewImage provided by the hook, fallback to GitHub OpenGraph
+  return (repo as any).previewImage ?? githubAshLogoSVG(repo.name)
 }
 
 function ProjectShowcaseScene({ project }: { project?: Repo }) {
