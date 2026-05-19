@@ -7,9 +7,10 @@ import { Background } from './components/Background'
 import { HeroScene } from './components/HeroScene'
 import { Projects } from './components/Projects'
 import { SkillsScene } from './components/SkillsScene'
+import { Certificates } from './components/Certificates'
 import profilePhoto from './assets/photo1.jpeg'
 
-const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Contact']
+const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Certificates', 'Contact']
 
 const experiences = [
   {
@@ -352,6 +353,7 @@ export default function App() {
         <Skills />
         <Projects />
         <Experience />
+        <Certificates />
         <Contact />
       </main>
     </div>
