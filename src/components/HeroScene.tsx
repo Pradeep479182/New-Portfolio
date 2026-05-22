@@ -193,7 +193,7 @@ export function HeroScene() {
         outlineWidth={0.012}
         outlineColor="#22d3ee"
       >
-        NATPU
+        Pradeepan Rakavi
       </Text>
     </>
   )

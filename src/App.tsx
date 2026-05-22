@@ -41,7 +41,9 @@ function Loader() {
         <div className="h-28 w-28 rounded-full border border-cyan-300/20 bg-cyan-300/5 shadow-[0_0_80px_rgba(34,211,238,0.24)]" />
         <div className="absolute h-44 w-44 animate-spin rounded-full border-t border-violet-300/70" />
         <div className="absolute h-20 w-20 animate-pulse rounded-full bg-gradient-to-br from-cyan-300 to-fuchsia-400 blur-xl opacity-30" />
-        <span className="absolute text-xs font-semibold uppercase tracking-[0.45em] text-cyan-100">Natpu</span>
+        <span className="absolute text-xs font-semibold uppercase tracking-[0.35em] text-cyan-100">
+          Rakavi
+        </span>
       </div>
     </motion.div>
   )
@@ -80,12 +82,12 @@ function Header() {
       className="fixed left-1/2 top-4 z-50 w-[min(1120px,calc(100%-24px))] -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/45 px-4 py-3 shadow-2xl shadow-cyan-950/20 backdrop-blur-2xl"
     >
       <div className="flex items-center justify-between gap-4">
-        <a href="#home" className="group flex items-center gap-3" aria-label="Natpu home">
+        <a href="#home" className="group flex items-center gap-3" aria-label="Pradeepan Rakavi home">
           <span className="grid h-9 w-9 place-items-center rounded-full border border-cyan-300/40 bg-cyan-300/10 text-sm font-black text-cyan-100 shadow-[0_0_28px_rgba(34,211,238,0.22)]">
-            N
+            PR
           </span>
           <span className="hidden text-sm font-semibold uppercase tracking-[0.32em] text-white sm:block">
-            Natpu
+            Pradeepan Rakavi
           </span>
         </a>
 
@@ -116,8 +118,8 @@ function Hero() {
           className="relative z-10 text-left"
         >
           <div className="eyebrow mb-6">Real-time 3D portfolio interface</div>
-          <h1 className="holo-title text-[clamp(4.2rem,12vw,10.5rem)] font-black leading-[0.78] text-white">
-            Natpu
+          <h1 className="holo-title text-[clamp(3rem,8vw,8rem)] font-black leading-[0.88] text-white">
+            Pradeepan Rakavi
           </h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -146,7 +148,7 @@ function Hero() {
               View Projects
             </a>
             <a className="glass-button" href="#contact">
-              Contact Natpu
+              Contact Pradeepan Rakavi
             </a>
           </motion.div>
 
@@ -200,12 +202,12 @@ function About() {
           <div className="profile-hologram">
             <div className="profile-orbit" />
             <div className="profile-core">
-              <img src={profilePhoto} alt="Natpu profile" />
+              <img src={profilePhoto} alt="Pradeepan Rakavi profile" />
             </div>
           </div>
           <h2 className="section-title mt-8">About Me</h2>
           <p className="mt-5 leading-8 text-slate-300">
-            I am Natpu, a UX/UI Designer and Frontend Developer focused on interfaces that feel precise, atmospheric, and usable. My work blends visual systems, responsive frontend engineering, and tasteful motion into polished product experiences.
+            I am Pradeepan Rakavi, a UX/UI Designer and Frontend Developer focused on interfaces that feel precise, atmospheric, and usable. My work blends visual systems, responsive frontend engineering, and tasteful motion into polished product experiences.
           </p>
         </motion.div>
 
@@ -319,7 +321,7 @@ function Contact() {
         </p>
         <div className="mt-9 flex flex-wrap gap-4">
           <a className="glow-button" href="mailto:natpu@example.com">
-            Email Natpu
+            Email Pradeepan Rakavi
           </a>
           <a className="glass-button" href="https://github.com/Pradeep479182" target="_blank" rel="noreferrer">
             GitHub
@@ -346,7 +348,6 @@ export default function App() {
       <AnimatePresence>{loading && <Loader />}</AnimatePresence>
       <CustomCursor />
       <Background />
-      <Header />
       <main className="relative z-10">
         <Hero />
         <About />
