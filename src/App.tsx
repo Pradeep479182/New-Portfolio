@@ -8,15 +8,16 @@ import { HeroScene } from './components/HeroScene'
 import { Projects } from './components/Projects'
 import { SkillsScene } from './components/SkillsScene'
 import { Certificates } from './components/Certificates'
-import profilePhoto from './assets/photo1.jpeg'
+import { Avatar } from './components/Avatar'
+import profilePhoto from './assets/Profile3.png'
 
 const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Certificates', 'Contact']
 
 const experiences = [
   {
     period: '2026',
-    title: 'UX/UI and Frontend Developer',
-    body: 'Designing immersive product interfaces with React, TypeScript, Tailwind CSS, and cinematic motion systems.',
+    title: 'Full Stack Developer',
+    body: 'Building immersive full-stack experiences with React, TypeScript, Next.js, Tailwind CSS, and cinematic motion systems.',
   },
   {
     period: '2025',
@@ -127,7 +128,7 @@ function Hero() {
             transition={{ delay: 0.25, duration: 0.7 }}
             className="mt-6 max-w-2xl text-balance text-[clamp(1.35rem,3vw,3rem)] font-semibold leading-tight text-slate-100"
           >
-            UX/UI Designer and Frontend Developer building cinematic digital products.
+            Full Stack Developer building cinematic digital products.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 18 }}
@@ -207,7 +208,7 @@ function About() {
           </div>
           <h2 className="section-title mt-8">About Me</h2>
           <p className="mt-5 leading-8 text-slate-300">
-            I am Pradeepan Rakavi, a UX/UI Designer and Frontend Developer focused on interfaces that feel precise, atmospheric, and usable. My work blends visual systems, responsive frontend engineering, and tasteful motion into polished product experiences.
+            I am Pradeepan Rakavi, a Full Stack Developer creating immersive digital experiences. I blend frontend interfaces with backend systems, 3D interactions, and thoughtful motion design to craft premium product experiences that feel precise, atmospheric, and polished.
           </p>
         </motion.div>
 
@@ -247,7 +248,7 @@ function Skills() {
             <h2 className="section-title">Skills</h2>
           </div>
           <p className="max-w-2xl text-left leading-8 text-slate-300 md:text-right">
-            A 3D constellation of the core tools behind the portfolio: React, TypeScript, Figma, Tailwind CSS, C#, and SQL Server.
+            A 3D constellation of the core tools behind the portfolio: React, TypeScript, Next.js, Tailwind CSS, and JavaScript.
           </p>
         </div>
 
@@ -317,7 +318,7 @@ function Contact() {
         <div className="eyebrow mb-5">Contact console</div>
         <h2 className="section-title">Let's Build Something Cinematic</h2>
         <p className="mt-6 max-w-3xl leading-8 text-slate-300">
-          Open to frontend work, portfolio projects, UX/UI systems, and high-polish web experiences with real motion, real structure, and a memorable first impression.
+          Open to full-stack projects, immersive web experiences, API integrations, and high-polish digital products with real motion, real structure, and a memorable first impression.
         </p>
         <div className="mt-9 flex flex-wrap gap-4">
           <a className="glow-button" href="mailto:natpu@example.com">
@@ -348,6 +349,7 @@ export default function App() {
       <AnimatePresence>{loading && <Loader />}</AnimatePresence>
       <CustomCursor />
       <Background />
+      <Avatar />
       <main className="relative z-10">
         <Hero />
         <About />

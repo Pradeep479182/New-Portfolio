@@ -6,12 +6,12 @@ import { Float, Text } from '@react-three/drei'
 import type { Group } from 'three'
 
 const skills = [
-  { label: 'React', short: 'R', color: '#22d3ee', angle: 0 },
-  { label: 'TypeScript', short: 'TS', color: '#60a5fa', angle: 1.04 },
-  { label: 'Figma', short: 'F', color: '#f472b6', angle: 2.08 },
-  { label: 'Tailwind CSS', short: 'TW', color: '#38bdf8', angle: 3.12 },
-  { label: 'C#', short: 'C#', color: '#a78bfa', angle: 4.16 },
-  { label: 'SQL Server', short: 'SQL', color: '#34d399', angle: 5.2 },
+  { label: 'Full Stack', short: 'FS', color: '#10b981', angle: 0 },
+  { label: 'React', short: 'R', color: '#22d3ee', angle: 1.04 },
+  { label: 'TypeScript', short: 'TS', color: '#60a5fa', angle: 2.08 },
+  { label: 'Next.js', short: 'NX', color: '#f3f4f6', angle: 3.12 },
+  { label: 'Tailwind CSS', short: 'TW', color: '#38bdf8', angle: 4.16 },
+  { label: 'JavaScript', short: 'JS', color: '#fbbf24', angle: 5.2 },
 ]
 
 const seeded = (seed: number) => {

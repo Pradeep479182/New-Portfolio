@@ -229,8 +229,10 @@ canvas {
     border-radius: 1rem;
     background: rgba(15, 23, 42, 0.5);
     padding: 1rem;
-    text-align: left;
+    text-align: center;
     backdrop-filter: blur(14px);
+    overflow: hidden;
+    word-break: break-word;
   }
 
   .metric-tile span {
@@ -239,6 +241,9 @@ canvas {
     font-size: clamp(1.35rem, 4vw, 2.1rem);
     font-weight: 900;
     line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .metric-tile small {
@@ -790,3 +795,44 @@ canvas {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Avatar Styles */
+.avatar-container {
+  perspective: 1200px;
+  filter: drop-shadow(0 20px 50px rgba(34, 211, 238, 0.15));
+}
+
+.avatar-inner {
+  transform-style: preserve-3d;
+}
+
+.avatar-container:hover {
+  filter: drop-shadow(0 30px 70px rgba(34, 211, 238, 0.25));
+}
+
+.avatar-container:hover .avatar-inner {
+  animation: avatar-dance 0.6s ease-in-out;
+}
+
+@keyframes avatar-dance {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(3deg);
+  }
+  50% {
+    transform: scale(1.15) rotate(-2deg);
+  }
+  75% {
+    transform: scale(1.08) rotate(2deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .avatar-container {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+

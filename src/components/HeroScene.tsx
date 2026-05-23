@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Float, Text, useTexture } from '@react-three/drei'
 import { LinearFilter, SRGBColorSpace } from 'three'
+import * as THREE from 'three'
 import type { Group, Mesh } from 'three'
 import profilePhoto from '../assets/photo1.jpeg'
 
@@ -79,6 +80,8 @@ function HologramProfile() {
   const ringRef = useRef<Mesh>(null)
   const coreRef = useRef<Group>(null)
   const profileTexture = useTexture(profilePhoto)
+  const profileRef1 = useRef<Mesh>(null)
+  const profileRef2 = useRef<Mesh>(null)
 
   useEffect(() => {
     profileTexture.colorSpace = SRGBColorSpace
@@ -101,6 +104,17 @@ function HologramProfile() {
       coreRef.current.position.y = Math.sin(time * 1.1) * 0.08
       coreRef.current.rotation.y = Math.sin(time * 0.5) * 0.18
     }
+
+    // Rotate side profile images
+    if (profileRef1.current) {
+      profileRef1.current.rotation.y = time * 0.5
+      profileRef1.current.position.x = Math.cos(time * 0.4) * 0.6
+    }
+
+    if (profileRef2.current) {
+      profileRef2.current.rotation.y = -time * 0.5
+      profileRef2.current.position.x = Math.cos(time * 0.4 + Math.PI) * 0.6
+    }
   })
 
   return (
@@ -110,8 +124,19 @@ function HologramProfile() {
           <sphereGeometry args={[0.55, 48, 48]} />
           <meshStandardMaterial color="#0d1b2d" emissive="#22d3ee" emissiveIntensity={0.34} metalness={0.7} roughness={0.18} />
         </mesh>
+        {/* Main center profile */}
         <mesh position={[0, 0, 0.57]} castShadow>
           <circleGeometry args={[0.76, 128]} />
+          <meshBasicMaterial map={profileTexture} toneMapped={false} />
+        </mesh>
+        {/* Side profile 1 - Left */}
+        <mesh ref={profileRef1} position={[-0.6, 0, 0.4]} castShadow>
+          <circleGeometry args={[0.45, 64]} />
+          <meshBasicMaterial map={profileTexture} toneMapped={false} />
+        </mesh>
+        {/* Side profile 2 - Right */}
+        <mesh ref={profileRef2} position={[0.6, 0, 0.4]} castShadow>
+          <circleGeometry args={[0.45, 64]} />
           <meshBasicMaterial map={profileTexture} toneMapped={false} />
         </mesh>
         <mesh position={[0, 0, 0.585]}>
@@ -131,7 +156,7 @@ function HologramProfile() {
           <meshBasicMaterial color="#f0abfc" transparent opacity={0.52} />
         </mesh>
         <Text position={[0, -1.36, 0.05]} fontSize={0.18} color="#e0f2fe" anchorX="center" anchorY="middle">
-          UX/UI + Frontend
+          Full Stack
         </Text>
       </group>
     </Float>
@@ -143,9 +168,9 @@ function FloatingPanels() {
     <group>
       {[
         [-1.85, 1.2, 0.35, 'React'],
-        [1.78, 0.85, 0.25, 'R3F'],
-        [-1.72, -0.55, 0.5, 'Figma'],
-        [1.62, -0.68, 0.55, 'TypeScript'],
+        [1.78, 0.85, 0.25, 'TypeScript'],
+        [-1.72, -0.55, 0.5, 'Next.js'],
+        [1.62, -0.68, 0.55, 'JavaScript'],
       ].map(([x, y, z, label], index) => (
         <Float key={label} floatIntensity={1.3} rotationIntensity={0.45} speed={1.1 + index * 0.16}>
           <group position={[x, y, z]} rotation={[0.08, index % 2 ? -0.34 : 0.34, 0]}>

@@ -1,6 +1,6 @@
 # Natpu Futuristic 3D Portfolio
 
-A cinematic React and TypeScript developer portfolio for Natpu, built with React Three Fiber, Three.js, Framer Motion, GSAP ScrollTrigger, Tailwind CSS, and a live GitHub repository feed.
+A cinematic Full Stack Developer portfolio for Pradeepan Rakavi, built with React, TypeScript, React Three Fiber, Three.js, Framer Motion, GSAP ScrollTrigger, Tailwind CSS, and a live GitHub repository feed.
 
 ## Features
 
@@ -8,7 +8,7 @@ A cinematic React and TypeScript developer portfolio for Natpu, built with React
 - 3D hero profile scene with a futuristic desktop environment and animated Natpu identity.
 - Apple-style project showcase with scroll-triggered depth, rotation, scale, and blur transitions.
 - GitHub API integration for live project cards, repository links, topics, languages, and preview images.
-- Animated 3D skills for React, TypeScript, Figma, Tailwind CSS, C#, and SQL Server.
+- Animated 3D skills for React, TypeScript, Next.js, Tailwind CSS, and JavaScript.
 - About, Skills, Projects, Experience, and Contact sections with responsive glassmorphism UI.
 - SEO metadata, structured data, and Vercel deployment config.
 
