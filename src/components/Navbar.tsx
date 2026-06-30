@@ -8,9 +8,9 @@ import {
   Briefcase,
   Award,
   MessageSquare,
-  Github,
-  Linkedin,
-  Twitter,
+  GitBranch,
+  Link2,
+  MessageCircle,
 } from 'lucide-react'
 
 interface NavItem {
@@ -29,9 +29,9 @@ const navItems: NavItem[] = [
 ]
 
 const socialLinks = [
-  { icon: <Github size={20} />, href: '#', label: 'GitHub' },
-  { icon: <Linkedin size={20} />, href: '#', label: 'LinkedIn' },
-  { icon: <Twitter size={20} />, href: '#', label: 'Twitter' },
+  { icon: <GitBranch size={20} />, href: '#', label: 'GitHub' },
+  { icon: <Link2 size={20} />, href: '#', label: 'LinkedIn' },
+  { icon: <MessageCircle size={20} />, href: '#', label: 'Twitter' },
 ]
 
 export function Navbar() {

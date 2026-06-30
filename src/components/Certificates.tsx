@@ -44,6 +44,11 @@ const stackVariants = {
 
 export function Certificates() {
   const [selectedCertId, setSelectedCertId] = useState<number | null>(null)
+  const [isExpanded, setIsExpanded] = useState(false)
+  
+  const initialCount = 4
+  const displayedCerts = isExpanded ? certificates : certificates.slice(0, initialCount)
+  const hasMore = certificates.length > initialCount
 
   return (
     <>
@@ -58,7 +63,7 @@ export function Certificates() {
           </div>
 
           <div className="certificate-stack-container">
-            {certificates.map((cert, index) => (
+            {displayedCerts.map((cert, index) => (
               <motion.article
                 key={cert.id}
                 custom={index}
@@ -129,6 +134,28 @@ export function Certificates() {
               </motion.article>
             ))}
           </div>
+
+          {/* More Button */}
+          <AnimatePresence>
+            {hasMore && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="mt-8 flex justify-center"
+              >
+                <motion.button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-lg shadow-cyan-500/50 hover:shadow-cyan-500/70 transition-all"
+                >
+                  {isExpanded ? 'Show Less' : `Show More (${certificates.length - initialCount} more)`}
+                </motion.button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Summary stats */}
           <motion.div

@@ -190,6 +190,20 @@ function Hero() {
 }
 
 function About() {
+  const speakPortfolioSummary = () => {
+    const summary =
+      "Welcome to our portfolio. I’m Rakavi, your AI voice assistant. This portfolio highlights full-stack development, immersive 3D motion, modern design systems, API-powered UI, and intelligent interactive experiences. Explore my work with AI-powered storytelling, intelligent UI guidance, and polished digital craftsmanship."
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel()
+      const utterance = new SpeechSynthesisUtterance(summary)
+      utterance.lang = 'en-US'
+      utterance.rate = 1
+      utterance.pitch = 1
+      window.speechSynthesis.speak(utterance)
+    }
+  }
+
   return (
     <section id="about" className="section-band px-5 py-24 md:px-8">
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
@@ -202,13 +216,41 @@ function About() {
         >
           <div className="profile-hologram">
             <div className="profile-orbit" />
-            <div className="profile-core">
-              <img src={profilePhoto} alt="Pradeepan Rakavi profile" />
+            <div className="profile-core robot-shell">
+              <div className="robot-antenna" />
+              <div className="robot-head">
+                <div className="robot-eye left" />
+                <div className="robot-eye right" />
+                <div className="robot-mouth" />
+              </div>
+              <div className="robot-body">
+                <div className="robot-chest" />
+                <div className="robot-wave" />
+              </div>
             </div>
+          </div>
+          <div className="assistant-callout mt-6 inline-flex items-center gap-3 rounded-full border border-cyan-300/20 bg-slate-900/70 px-4 py-2 text-sm text-cyan-100 shadow-[0_0_24px_rgba(34,211,238,0.12)]">
+            <span className="assistant-dot" />
+            <span>AI Voice Assistant active</span>
+          </div>
+          <div className="assistant-voice-panel mt-4 rounded-3xl border border-cyan-300/15 bg-[#08101f]/90 p-5 text-slate-200 shadow-[0_0_45px_rgba(14,165,233,0.12)]">
+            <p className="text-sm uppercase tracking-[0.24em] text-cyan-200/90">Welcome to our portfolio</p>
+            <h3 className="mt-2 text-xl font-semibold text-white">I’m Rakavi — your AI portfolio guide.</h3>
+            <p className="mt-3 leading-7 text-slate-300">
+              This AI assistant summarizes the portfolio features: full-stack development, immersive 3D motion, modern design systems, API-powered UI, and intelligent interactive experience design.
+            </p>
+            <p className="mt-3 text-cyan-100/95 italic">“Explore my work with AI-powered storytelling, intelligent UI guidance, and polished digital craftsmanship.”</p>
+            <button
+              type="button"
+              onClick={speakPortfolioSummary}
+              className="mt-5 inline-flex items-center justify-center rounded-full bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-[0_10px_35px_rgba(56,189,248,0.22)] transition hover:bg-cyan-300"
+            >
+              Play voice summary
+            </button>
           </div>
           <h2 className="section-title mt-8">About Me</h2>
           <p className="mt-5 leading-8 text-slate-300">
-            I am Pradeepan Rakavi, a Full Stack Developer creating immersive digital experiences. I blend frontend interfaces with backend systems, 3D interactions, and thoughtful motion design to craft premium product experiences that feel precise, atmospheric, and polished.
+            I am Pradeepan Rakavi, a Full Stack Developer creating immersive digital experiences with AI-powered interactions. I blend frontend interfaces with backend systems, 3D motion, and intelligent assistant experiences to bring premium products to life.
           </p>
         </motion.div>
 

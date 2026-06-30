@@ -293,6 +293,202 @@ canvas {
     filter: contrast(1.04) saturate(1.08);
   }
 
+  .robot-shell {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 10rem;
+    height: 10rem;
+    animation: robot-pulse 3.2s ease-in-out infinite;
+  }
+
+  .robot-head {
+    position: relative;
+    width: 6rem;
+    height: 5rem;
+    border-radius: 1.4rem;
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    background: rgba(7, 12, 26, 0.95);
+    box-shadow: inset 0 0 28px rgba(34, 211, 238, 0.12), 0 0 30px rgba(56, 189, 248, 0.15);
+  }
+
+  .robot-eye {
+    position: absolute;
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 999px;
+    background: #7dd3fc;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.75);
+  }
+
+  .robot-eye.left {
+    left: 1.1rem;
+    top: 1.4rem;
+  }
+
+  .robot-eye.right {
+    right: 1.1rem;
+    top: 1.4rem;
+  }
+
+  .robot-mouth {
+    position: absolute;
+    left: 50%;
+    bottom: 1.1rem;
+    transform: translateX(-50%);
+    width: 2rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.95), rgba(192, 132, 252, 0.9));
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.45);
+  }
+
+  .robot-antenna {
+    position: absolute;
+    top: -0.9rem;
+    width: 0.35rem;
+    height: 1.3rem;
+    border-radius: 0.2rem;
+    background: rgba(56, 189, 248, 0.9);
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
+  }
+
+  .robot-antenna::after {
+    content: "";
+    position: absolute;
+    top: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: #7dd3fc;
+    box-shadow: 0 0 22px rgba(56, 189, 248, 0.8);
+  }
+
+  .robot-body {
+    position: absolute;
+    bottom: 0.5rem;
+    width: 5rem;
+    height: 4rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    background: rgba(15, 23, 42, 0.9);
+    box-shadow: inset 0 0 18px rgba(34, 211, 238, 0.1);
+    display: grid;
+    place-items: center;
+  }
+
+  .robot-chest {
+    width: 3rem;
+    height: 1.8rem;
+    border-radius: 0.9rem;
+    background: linear-gradient(180deg, rgba(14, 165, 233, 0.25), rgba(255, 255, 255, 0.08));
+    box-shadow: inset 0 0 14px rgba(34, 211, 238, 0.2);
+  }
+
+  .robot-wave {
+    position: absolute;
+    top: 1.2rem;
+    right: -1.2rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: rgba(56, 189, 248, 0.7);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.45);
+    animation: pulse-wave 1.8s ease-in-out infinite;
+  }
+
+  .robot-wave::before,
+  .robot-wave::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    opacity: 0.5;
+    transform: scale(1);
+  }
+
+  .robot-wave::before {
+    transform: scale(1.7);
+    opacity: 0.28;
+  }
+
+  .robot-wave::after {
+    transform: scale(2.8);
+    opacity: 0.12;
+  }
+
+  @keyframes robot-pulse {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-3px) scale(1.02);
+    }
+  }
+
+  @keyframes pulse-wave {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.55);
+    }
+  }
+
+  .assistant-callout {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(56, 189, 248, 0.28);
+    background: rgba(15, 23, 42, 0.75);
+    color: #cbe7ff;
+    padding: 0.65rem 1rem;
+    backdrop-filter: blur(18px);
+  }
+
+  .assistant-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: #38bdf8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.75);
+    animation: assistant-pulse 1.8s ease-in-out infinite;
+  }
+
+  .assistant-voice-panel {
+    border-radius: 1.75rem;
+    border: 1px solid rgba(56, 189, 248, 0.16);
+    background: rgba(3, 10, 23, 0.9);
+    padding: 1.25rem 1.3rem;
+    box-shadow: 0 0 36px rgba(34, 211, 238, 0.12);
+    backdrop-filter: blur(18px);
+  }
+
+  .assistant-voice-panel h3 {
+    color: #e0f2fe;
+  }
+
+  .assistant-voice-panel p {
+    color: #cbd5e1;
+  }
+
+  @keyframes assistant-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.15);
+      opacity: 0.75;
+    }
+  }
+
   .profile-orbit {
     position: absolute;
     width: 13rem;

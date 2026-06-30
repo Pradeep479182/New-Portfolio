@@ -4,7 +4,7 @@ import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Float, Text } from '@react-three/drei'
 import Tilt from 'react-parallax-tilt'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGithubRepos, type Repo } from '../hooks/useGithubRepos'
@@ -200,8 +200,13 @@ export function Projects() {
   const { repos, loading, error } = useGithubRepos(username, 9, 300000)
   const rootRef = useRef<HTMLDivElement | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isExpanded, setIsExpanded] = useState(false)
   const visibleRepos = repos.length ? repos : fallbackProjects
   const activeProject = visibleRepos[activeIndex] ?? visibleRepos[0]
+  
+  const initialCount = 4
+  const displayedRepos = isExpanded ? visibleRepos : visibleRepos.slice(0, initialCount)
+  const hasMore = visibleRepos.length > initialCount
 
   useEffect(() => {
     const root = rootRef.current
@@ -245,7 +250,7 @@ export function Projects() {
     }, root)
 
     return () => context.revert()
-  }, [visibleRepos.length])
+  }, [displayedRepos.length])
 
   return (
     <section id="projects" ref={rootRef} className="section-band px-5 py-24 md:px-8">
@@ -283,7 +288,7 @@ export function Projects() {
           </div>
 
           <div className="project-stack">
-            {visibleRepos.map((repo, index) => (
+            {displayedRepos.map((repo, index) => (
               <motion.div
                 key={repo.id}
                 initial={{ opacity: 0 }}
@@ -295,6 +300,28 @@ export function Projects() {
               </motion.div>
             ))}
           </div>
+
+          {/* More Button */}
+          <AnimatePresence>
+            {hasMore && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="mt-8 flex justify-center"
+              >
+                <motion.button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-lg shadow-cyan-500/50 hover:shadow-cyan-500/70 transition-all"
+                >
+                  {isExpanded ? 'Show Less' : `Show More (${visibleRepos.length - initialCount} more)`}
+                </motion.button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>
