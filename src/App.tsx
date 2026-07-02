@@ -9,6 +9,11 @@ import { Projects } from './components/Projects'
 import { SkillsScene } from './components/SkillsScene'
 import { Certificates } from './components/Certificates'
 import { Avatar } from './components/Avatar'
+import { PremiumLoader } from './components/PremiumLoader'
+import { PortraitDisplay } from './components/PortraitDisplay'
+import { AnimatedBackground } from './components/AnimatedBackground'
+import { PremiumButton } from './components/PremiumButton'
+import FloatingEmailButton from './components/FloatingEmailButton'
 import profilePhoto from './assets/Profile3.png'
 
 const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Certificates', 'Contact']
@@ -30,25 +35,6 @@ const experiences = [
     body: 'GitHub connected project cards, 3D skill scenes, and scroll-driven project storytelling for a premium web presence.',
   },
 ]
-
-function Loader() {
-  return (
-    <motion.div
-      className="fixed inset-0 z-[100] grid place-items-center bg-[#02040b]"
-      exit={{ opacity: 0, scale: 1.03 }}
-      transition={{ duration: 0.7, ease: 'easeInOut' }}
-    >
-      <div className="relative grid place-items-center">
-        <div className="h-28 w-28 rounded-full border border-cyan-300/20 bg-cyan-300/5 shadow-[0_0_80px_rgba(34,211,238,0.24)]" />
-        <div className="absolute h-44 w-44 animate-spin rounded-full border-t border-violet-300/70" />
-        <div className="absolute h-20 w-20 animate-pulse rounded-full bg-gradient-to-br from-cyan-300 to-fuchsia-400 blur-xl opacity-30" />
-        <span className="absolute text-xs font-semibold uppercase tracking-[0.35em] text-cyan-100">
-          Rakavi
-        </span>
-      </div>
-    </motion.div>
-  )
-}
 
 function CustomCursor() {
   const mouseX = useMotionValue(-100)
@@ -109,82 +95,137 @@ function Header() {
 }
 
 function Hero() {
+  const [isHeroLoaded, setIsHeroLoaded] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsHeroLoaded(true), 100)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <section id="home" className="relative min-h-screen overflow-hidden px-5 pt-28 md:px-8">
-      <div className="mx-auto grid min-h-[calc(100vh-7rem)] w-full max-w-7xl items-center gap-12 pb-16 lg:grid-cols-[0.94fr_1.06fr]">
+      {/* Animated background with grid and particles */}
+      <AnimatedBackground />
+
+      <div className="mx-auto grid min-h-[calc(100vh-7rem)] w-full max-w-7xl items-center gap-12 pb-16 lg:grid-cols-[0.94fr_1.06fr] relative z-10">
+        {/* Left side: Text content */}
         <motion.div
-          initial={{ opacity: 0, y: 42, filter: 'blur(18px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, x: -40, filter: 'blur(18px)' }}
+          animate={isHeroLoaded ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
+          transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-10 text-left"
         >
-          <div className="eyebrow mb-6">Real-time 3D portfolio interface</div>
-          <h1 className="holo-title text-[clamp(3rem,8vw,8rem)] font-black leading-[0.88] text-white">
-            Pradeepan Rakavi
-          </h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.7 }}
-            className="mt-6 max-w-2xl text-balance text-[clamp(1.35rem,3vw,3rem)] font-semibold leading-tight text-slate-100"
-          >
-            Full Stack Developer building cinematic digital products.
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.7 }}
-            className="mt-5 max-w-xl text-base leading-8 text-slate-300 md:text-lg"
-          >
-            Dark glass interfaces, React systems, interactive 3D scenes, and scroll stories that make each project feel like a product launch.
-          </motion.p>
-
+          {/* Subtitle/Eyebrow */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.65, duration: 0.7 }}
-            className="mt-9 flex flex-wrap items-center gap-4"
+            initial={{ opacity: 0, y: -10 }}
+            animate={isHeroLoaded ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="eyebrow mb-6 text-cyan-300/80"
           >
-            <a className="glow-button" href="#projects">
-              View Projects
-            </a>
-            <a className="glass-button" href="#contact">
-              Contact Pradeepan Rakavi
-            </a>
+            Premium Portfolio Experience
           </motion.div>
 
+          {/* Main heading */}
+          <motion.h1
+            initial={{ opacity: 0, x: -60, filter: 'blur(15px)' }}
+            animate={isHeroLoaded ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
+            transition={{ delay: 0.25, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="holo-title text-[clamp(2.5rem,8vw,8rem)] font-black leading-[0.88] text-white bg-gradient-to-r from-white via-cyan-100 to-blue-100 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(34,211,238,0.3)]"
+          >
+            Pradeepan Rakavi
+          </motion.h1>
+
+          {/* Subtitle: Job title */}
+          <motion.p
+            initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+            animate={isHeroLoaded ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="mt-4 text-[clamp(1.25rem,4vw,2.5rem)] font-bold text-cyan-200 drop-shadow-[0_0_20px_rgba(34,211,238,0.2)]"
+          >
+            Full Stack Developer
+          </motion.p>
+
+          {/* Professional description */}
+          <motion.p
+            initial={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
+            animate={isHeroLoaded ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ delay: 0.55, duration: 0.8 }}
+            className="mt-6 max-w-xl text-base leading-8 text-slate-300 md:text-lg"
+          >
+            Passionate about building modern, scalable, and user-focused web applications. I craft immersive digital experiences combining elegant design, powerful functionality, and cinematic interactions that engage and inspire.
+          </motion.p>
+
+          {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-            className="mt-10 grid max-w-xl grid-cols-3 gap-3"
+            initial={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
+            animate={isHeroLoaded ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="mt-10 flex flex-wrap items-center gap-4"
+          >
+            <PremiumButton href="#projects" variant="primary">
+              View Projects
+            </PremiumButton>
+            <PremiumButton href="#contact" variant="secondary">
+              Contact Me
+            </PremiumButton>
+          </motion.div>
+
+          {/* Stats/Metrics */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isHeroLoaded ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.9, duration: 0.8 }}
+            className="mt-12 grid max-w-xl grid-cols-3 gap-4"
           >
             {[
-              ['3D', 'Interfaces'],
-              ['API', 'Synced'],
-              ['Motion', 'Driven'],
-            ].map(([value, label]) => (
-              <div key={value} className="metric-tile">
-                <span>{value}</span>
-                <small>{label}</small>
-              </div>
+              { value: '10+', label: 'Projects Built' },
+              { value: '3D', label: 'Interactive' },
+              { value: 'Full', label: 'Stack' },
+            ].map(({ value, label }) => (
+              <motion.div
+                key={value}
+                className="metric-tile group relative rounded-lg border border-cyan-400/20 bg-cyan-900/5 p-4 backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/40 hover:bg-cyan-900/10"
+                whileHover={{ scale: 1.05 }}
+              >
+                <span className="block text-lg md:text-2xl font-bold text-cyan-300 group-hover:text-cyan-200 transition-colors">
+                  {value}
+                </span>
+                <small className="text-xs md:text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
+                  {label}
+                </small>
+              </motion.div>
             ))}
           </motion.div>
         </motion.div>
 
+        {/* Right side: Portrait */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.92, rotateY: -18 }}
-          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+          className="relative h-[58vh] min-h-[390px] lg:h-[76vh] w-full"
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={isHeroLoaded ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: 0.2, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-          className="scene-shell relative h-[58vh] min-h-[390px] lg:h-[76vh]"
         >
-          <Canvas shadows camera={{ position: [0, 1.4, 6.3], fov: 42 }} dpr={[1, 1.6]}>
-            <Suspense fallback={null}>
-              <HeroScene />
-            </Suspense>
-          </Canvas>
+          <PortraitDisplay portraitSrc={profilePhoto} isLoaded={isHeroLoaded} />
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-xs text-slate-400 uppercase tracking-widest">Scroll to explore</p>
+          <div className="w-6 h-10 border-2 border-cyan-400/40 rounded-full flex justify-center p-2">
+            <motion.div
+              className="w-1 h-2 bg-cyan-400 rounded-full"
+              animate={{ y: [0, 8] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </div>
+        </div>
+      </motion.div>
     </section>
   )
 }
@@ -363,7 +404,7 @@ function Contact() {
           Open to full-stack projects, immersive web experiences, API integrations, and high-polish digital products with real motion, real structure, and a memorable first impression.
         </p>
         <div className="mt-9 flex flex-wrap gap-4">
-          <a className="glow-button" href="mailto:natpu@example.com">
+          <a className="glow-button" href="mailto:pradeeprakavi@gmail.com?subject=Let's%20Collaborate%20-%20Full%20Stack%20Project&body=Hi%20Pradeepan,%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20potential%20project.%0A%0APlease%20share%20your%20availability.%0A%0ABest%20regards">
             Email Pradeepan Rakavi
           </a>
           <a className="glass-button" href="https://github.com/Pradeep479182" target="_blank" rel="noreferrer">
@@ -382,14 +423,15 @@ export default function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setLoading(false), 1300)
+    const timer = window.setTimeout(() => setLoading(false), 2000)
     return () => window.clearTimeout(timer)
   }, [])
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#02040b] text-white">
-      <AnimatePresence>{loading && <Loader />}</AnimatePresence>
+      <AnimatePresence>{loading && <PremiumLoader />}</AnimatePresence>
       <CustomCursor />
+      <FloatingEmailButton />
       <Background />
       <Avatar />
       <main className="relative z-10">

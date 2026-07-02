@@ -11,6 +11,7 @@
     "postinstall": "tailwindcss -i src/styles/tailwind.css -o src/styles/output.css || true"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@react-three/drei": "^9.56.0",
     "@react-three/fiber": "^8.13.0",
     "axios": "^1.4.0",
