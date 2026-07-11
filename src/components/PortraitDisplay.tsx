@@ -119,7 +119,7 @@ export function PortraitDisplay({ portraitSrc, isLoaded }: PortraitDisplayProps)
         }}
       >
         {/* Glassmorphism overlay frame */}
-        <div className="absolute inset-0 z-10 rounded-3xl border border-white/10 backdrop-blur-[2px] pointer-events-none" />
+        <div className="absolute inset-0 z-10 rounded-3xl border border-white/10 backdrop-blur-[0.5px] pointer-events-none" />
 
         {/* Portrait entrance animation */}
         <motion.div
@@ -153,6 +153,10 @@ export function PortraitDisplay({ portraitSrc, isLoaded }: PortraitDisplayProps)
             alt="Pradeepan Rakavi Portrait"
             className="h-full w-full object-cover object-center"
             loading="eager"
+            style={{
+              filter: 'saturate(1.05) brightness(1.02)',
+              WebkitBackfaceVisibility: 'hidden',
+            }}
           />
 
           {/* Subtle rim lighting overlay */}
@@ -161,16 +165,16 @@ export function PortraitDisplay({ portraitSrc, isLoaded }: PortraitDisplayProps)
           {/* Enhanced rim light from edges */}
           <div className="absolute inset-0">
             {/* Left rim */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-cyan-400/20 to-transparent" />
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-cyan-400/10 to-transparent" />
             {/* Top rim */}
-            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-blue-400/15 to-transparent" />
+            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-blue-400/8 to-transparent" />
             {/* Right subtle glow */}
-            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-purple-500/10 to-transparent" />
+            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-purple-500/5 to-transparent" />
           </div>
 
           {/* Soft floating animation overlay */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-cyan-900/10"
+            className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-cyan-900/5"
             animate={{
               opacity: [0.2, 0.4, 0.2],
             }}

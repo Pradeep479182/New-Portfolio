@@ -8,13 +8,13 @@ import { HeroScene } from './components/HeroScene'
 import { Projects } from './components/Projects'
 import { SkillsScene } from './components/SkillsScene'
 import { Certificates } from './components/Certificates'
-import { Avatar } from './components/Avatar'
 import { PremiumLoader } from './components/PremiumLoader'
 import { PortraitDisplay } from './components/PortraitDisplay'
 import { AnimatedBackground } from './components/AnimatedBackground'
 import { PremiumButton } from './components/PremiumButton'
 import FloatingEmailButton from './components/FloatingEmailButton'
-import profilePhoto from './assets/Profile3.png'
+import { CVButton } from './components/CVButton'
+import profilePhoto from './assets/photo1.jpeg'
 
 const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Certificates', 'Contact']
 
@@ -432,8 +432,8 @@ export default function App() {
       <AnimatePresence>{loading && <PremiumLoader />}</AnimatePresence>
       <CustomCursor />
       <FloatingEmailButton />
+      <CVButton />
       <Background />
-      <Avatar />
       <main className="relative z-10">
         <Hero />
         <About />

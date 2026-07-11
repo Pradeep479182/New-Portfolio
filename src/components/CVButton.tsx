@@ -4,7 +4,7 @@ import { Download } from 'lucide-react'
 export function CVButton() {
   return (
     <motion.a
-      href="/Pradeepcv.pdf"
+      href="public/Pradeep_Rakavi_CV.pdf"
       download
       whileHover={{
         scale: 1.08,

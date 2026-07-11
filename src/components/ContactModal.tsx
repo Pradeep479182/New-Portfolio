@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Mail, User, MessageSquare, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { X, Mail, User, MessageSquare, Send, CheckCircle, AlertCircle, Volume2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 
@@ -27,6 +27,25 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
   const [isLoading, setIsLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  // Text-to-Speech function
+  const speakMessage = (text: string) => {
+    if ('speechSynthesis' in window) {
+      // Cancel any ongoing speech
+      window.speechSynthesis.cancel();
+      
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.95;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+      
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      
+      window.speechSynthesis.speak(utterance);
+    }
+  };
 
   // Initialize EmailJS
   useEffect(() => {
@@ -112,6 +131,8 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
 
       if (response.status === 200) {
         setSubmitStatus('success');
+        // Speak thank you message
+        speakMessage('Thank you for your valuable feedback! I really appreciate it and will review your suggestions carefully.');
         setFormData({
           fullName: '',
           email: '',
@@ -119,11 +140,11 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
           message: '',
         });
 
-        // Auto close modal after 3 seconds
+        // Auto close modal after 4 seconds
         setTimeout(() => {
           onClose();
           setSubmitStatus('idle');
-        }, 3000);
+        }, 4000);
       }
     } catch (error) {
       console.error('Email send error:', error);
@@ -155,8 +176,9 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-lg mx-4"
+            className="fixed inset-0 flex items-center justify-center z-50 p-4"
           >
+            <div className="w-full max-w-lg">
             {/* Outer glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 rounded-2xl blur-2xl" />
 
@@ -178,9 +200,28 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                   >
                     <CheckCircle size={64} className="text-emerald-400 mb-4" />
                   </motion.div>
-                  <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                  <p className="text-slate-300 text-center">
-                    Thank you for reaching out. I'll get back to you as soon as possible.
+                  <h3 className="text-2xl font-bold text-white mb-2">Thank You for Your Feedback!</h3>
+                  <p className="text-slate-300 text-center mb-6">
+                    I really appreciate your valuable insights and will review them carefully to improve my portfolio.
+                  </p>
+                  
+                  {/* AI Voice Assistant */}
+                  <motion.button
+                    onClick={() => speakMessage('Thank you for your valuable feedback! I really appreciate it and will review your suggestions carefully.')}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
+                      isSpeaking
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white'
+                    }`}
+                  >
+                    <Volume2 size={20} />
+                    {isSpeaking ? 'Speaking...' : 'Hear AI Response'}
+                  </motion.button>
+                  
+                  <p className="text-xs text-slate-500 mt-4 text-center">
+                    This modal will close in a few seconds...
                   </p>
                 </motion.div>
               )}
@@ -215,8 +256,8 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                           <Mail size={24} className="text-white" />
                         </div>
                         <div>
-                          <h2 className="text-2xl font-bold text-white">Get in Touch</h2>
-                          <p className="text-sm text-slate-400">Send me a message</p>
+                          <h2 className="text-2xl font-bold text-white">Portfolio Feedback</h2>
+                          <p className="text-sm text-slate-400">Help me improve - share your thoughts</p>
                         </div>
                       </div>
                       <button
@@ -229,12 +270,13 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                   </div>
 
                   {/* Form */}
-                  <form ref={formRef} onSubmit={handleSubmit} className="p-8 space-y-6">
+                  <form ref={formRef} onSubmit={handleSubmit} className="p-8 space-y-3">
+                    <div className="max-h-[calc(70vh-300px)] overflow-y-auto pr-2">
                     {/* Full Name */}
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-slate-200">
-                        <div className="flex items-center gap-2 mb-2">
-                          <User size={16} className="text-cyan-400" />
+                    <div className="space-y-1">
+                      <label className="block text-xs font-medium text-slate-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <User size={14} className="text-cyan-400" />
                           Full Name
                         </div>
                       </label>
@@ -244,7 +286,7 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                         value={formData.fullName}
                         onChange={handleChange}
                         placeholder="Your name"
-                        className={`w-full px-4 py-3 bg-white/5 backdrop-blur-sm border rounded-lg outline-none transition-all ${
+                        className={`w-full px-3 py-2 bg-white/5 backdrop-blur-sm border rounded-lg outline-none transition-all text-sm ${
                           errors.fullName
                             ? 'border-red-500/50 focus:border-red-400 focus:ring-2 focus:ring-red-400/20'
                             : 'border-white/10 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20'
@@ -256,10 +298,10 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                     </div>
 
                     {/* Email */}
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-slate-200">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Mail size={16} className="text-cyan-400" />
+                    <div className="space-y-1">
+                      <label className="block text-xs font-medium text-slate-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Mail size={14} className="text-cyan-400" />
                           Email Address
                         </div>
                       </label>
@@ -269,7 +311,7 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="your@email.com"
-                        className={`w-full px-4 py-3 bg-white/5 backdrop-blur-sm border rounded-lg outline-none transition-all ${
+                        className={`w-full px-3 py-2 bg-white/5 backdrop-blur-sm border rounded-lg outline-none transition-all text-sm ${
                           errors.email
                             ? 'border-red-500/50 focus:border-red-400 focus:ring-2 focus:ring-red-400/20'
                             : 'border-white/10 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20'
@@ -279,11 +321,11 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                     </div>
 
                     {/* Subject */}
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-slate-200">
-                        <div className="flex items-center gap-2 mb-2">
-                          <MessageSquare size={16} className="text-cyan-400" />
-                          Subject
+                    <div className="space-y-1">
+                      <label className="block text-xs font-medium text-slate-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <MessageSquare size={14} className="text-cyan-400" />
+                          Feedback Category
                         </div>
                       </label>
                       <input
@@ -291,8 +333,8 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                         name="subject"
                         value={formData.subject}
                         onChange={handleChange}
-                        placeholder="What is this about?"
-                        className={`w-full px-4 py-3 bg-white/5 backdrop-blur-sm border rounded-lg outline-none transition-all ${
+                        placeholder="e.g., Design, Features, Performance, or General Feedback"
+                        className={`w-full px-3 py-2 bg-white/5 backdrop-blur-sm border rounded-lg outline-none transition-all text-sm ${
                           errors.subject
                             ? 'border-red-500/50 focus:border-red-400 focus:ring-2 focus:ring-red-400/20'
                             : 'border-white/10 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20'
@@ -304,20 +346,20 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                     </div>
 
                     {/* Message */}
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-slate-200">
-                        <div className="flex items-center gap-2 mb-2">
-                          <MessageSquare size={16} className="text-cyan-400" />
-                          Message
+                    <div className="space-y-1">
+                      <label className="block text-xs font-medium text-slate-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <MessageSquare size={14} className="text-cyan-400" />
+                          Your Feedback
                         </div>
                       </label>
                       <textarea
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
-                        placeholder="Tell me about your project, opportunity, or feedback..."
-                        rows={5}
-                        className={`w-full px-4 py-3 bg-white/5 backdrop-blur-sm border rounded-lg outline-none transition-all resize-none ${
+                        placeholder="Share your thoughts on my portfolio... What did you like? What can I improve? Any suggestions?"
+                        rows={2}
+                        className={`w-full px-3 py-2 bg-white/5 backdrop-blur-sm border rounded-lg outline-none transition-all resize-none text-sm ${
                           errors.message
                             ? 'border-red-500/50 focus:border-red-400 focus:ring-2 focus:ring-red-400/20'
                             : 'border-white/10 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20'
@@ -330,13 +372,14 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                         {formData.message.length} / 1000 characters
                       </p>
                     </div>
+                    </div>
 
-                    {/* Buttons */}
-                    <div className="flex gap-3 pt-4">
+                    {/* Buttons - Always Visible */}
+                    <div className="flex gap-2 pt-3 border-t border-white/10">
                       <button
                         type="button"
                         onClick={onClose}
-                        className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 text-white rounded-lg border border-white/10 transition-all font-medium"
+                        className="flex-1 px-3 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg border border-white/10 transition-all font-medium text-sm"
                       >
                         Cancel
                       </button>
@@ -345,7 +388,7 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                         disabled={isLoading}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="flex-1 px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white rounded-lg font-medium flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+                        className="flex-1 px-3 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white rounded-lg font-medium flex items-center justify-center gap-2 transition-all disabled:opacity-50 text-sm"
                       >
                         {isLoading ? (
                           <>
@@ -353,14 +396,14 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                               animate={{ rotate: 360 }}
                               transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                             >
-                              <Send size={18} />
+                              <Send size={16} />
                             </motion.div>
                             Sending...
                           </>
                         ) : (
                           <>
-                            <Send size={18} />
-                            Send Message
+                            <Send size={16} />
+                            Send Feedback
                           </>
                         )}
                       </motion.button>
@@ -368,6 +411,7 @@ export default function ContactModal({ isOpen, onClose }: { isOpen: boolean; onC
                   </form>
                 </>
               )}
+            </div>
             </div>
           </motion.div>
         </>

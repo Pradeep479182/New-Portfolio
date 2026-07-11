@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import profilePhoto from '../assets/Cover.png'
 
 export function Avatar() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -70,14 +69,8 @@ export function Avatar() {
           }}
           className="relative w-28 h-28 md:w-32 md:h-32 rounded-full border-2 border-cyan-400/30 overflow-hidden backdrop-blur-sm bg-gradient-to-br from-cyan-900/20 to-purple-900/20 p-1"
         >
-          {/* Profile Image */}
-          <div className="w-full h-full rounded-full overflow-hidden border border-cyan-400/40">
-            <img
-              src={profilePhoto}
-              alt="Pradeepan Rakavi Avatar"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {/* Profile Image - Placeholder */}
+          <div className="w-full h-full rounded-full overflow-hidden border border-cyan-400/40 bg-gradient-to-br from-cyan-400/10 to-purple-400/10" />
 
           {/* Animated border */}
           <motion.div
