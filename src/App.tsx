@@ -14,6 +14,7 @@ import { AnimatedBackground } from './components/AnimatedBackground'
 import { PremiumButton } from './components/PremiumButton'
 import FloatingEmailButton from './components/FloatingEmailButton'
 import { CVButton } from './components/CVButton'
+import { LiquidBackground } from './components/LiquidBackground'
 import profilePhoto from './assets/photo1.jpeg'
 
 const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Certificates', 'Contact']
@@ -237,11 +238,34 @@ function About() {
 
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel()
-      const utterance = new SpeechSynthesisUtterance(summary)
-      utterance.lang = 'en-US'
-      utterance.rate = 1
-      utterance.pitch = 1
-      window.speechSynthesis.speak(utterance)
+
+      const speakWithVoice = (voice?: SpeechSynthesisVoice) => {
+        const utterance = new SpeechSynthesisUtterance(summary)
+        utterance.lang = 'en-US'
+        utterance.rate = 1
+        utterance.pitch = 1
+        if (voice) utterance.voice = voice
+        window.speechSynthesis.speak(utterance)
+      }
+
+      const voices = window.speechSynthesis.getVoices() || []
+      const findFemale = (list: SpeechSynthesisVoice[]) =>
+        list.find(
+          (v) => /female|woman|samantha|karen|allison|zira|google/i.test(v.name)
+        )
+
+      const preferred = findFemale(voices) || voices.find((v) => v.lang?.startsWith('en')) || voices[0]
+
+      if (voices.length === 0) {
+        // Voices may not be loaded yet — wait for change event
+        window.speechSynthesis.onvoiceschanged = () => {
+          const vs = window.speechSynthesis.getVoices() || []
+          const v = findFemale(vs) || vs.find((vv) => vv.lang?.startsWith('en')) || vs[0]
+          speakWithVoice(v)
+        }
+      } else {
+        speakWithVoice(preferred)
+      }
     }
   }
 
@@ -433,6 +457,7 @@ export default function App() {
       <CustomCursor />
       <FloatingEmailButton />
       <CVButton />
+      <LiquidBackground />
       <Background />
       <main className="relative z-10">
         <Hero />
