@@ -787,6 +787,27 @@ canvas {
     transform: scale(1.08) rotate(2deg);
   }
 
+  /* Typing cursor styles for job title */
+  .typing-text {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.05em;
+    background: currentColor;
+    margin-left: 0.35rem;
+    vertical-align: text-bottom;
+    animation: typing-blink 1s steps(1) infinite;
+    border-radius: 1px;
+  }
+
+  @keyframes typing-blink {
+    50% { opacity: 0; }
+  }
+
   .certificate-icon svg {
     width: 1.6rem;
     height: 1.6rem;

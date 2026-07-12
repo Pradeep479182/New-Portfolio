@@ -22,17 +22,17 @@ const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Certificates', '
 const experiences = [
   {
     period: '2026',
-    title: 'Full Stack Developer',
+    title: 'Full Stack Developer(hand-On Project)',
     body: 'Building immersive full-stack experiences with React, TypeScript, Next.js, Tailwind CSS, and cinematic motion systems.',
   },
   {
     period: '2025',
-    title: 'Interface Systems Builder',
+    title: 'Interface Systems Builder(hand-On Project)',
     body: 'Built responsive dashboards, portfolio systems, and reusable UI patterns focused on clarity, speed, and polish.',
   },
   {
     period: 'Now',
-    title: 'Real-time Portfolio Lab',
+    title: 'Real-time Portfolio Lab(hand-On Project)',
     body: 'GitHub connected project cards, 3D skill scenes, and scroll-driven project storytelling for a premium web presence.',
   },
 ]
@@ -58,6 +58,53 @@ function CustomCursor() {
       <motion.div className="cursor-ring" style={{ x: springX, y: springY }} />
       <motion.div className="cursor-core" style={{ x: mouseX, y: mouseY }} />
     </>
+  )
+}
+
+function TypingText({ text, speed = 70, loop = false }: { text: string; speed?: number; loop?: boolean }) {
+  const [display, setDisplay] = useState('')
+
+  useEffect(() => {
+    let mounted = true
+    let idx = 0
+    let forward = true
+    let timer: any = null
+
+    const step = () => {
+      if (!mounted) return
+      setDisplay(text.slice(0, idx))
+
+      if (forward) {
+        if (idx < text.length) {
+          idx++
+          timer = setTimeout(step, speed)
+        } else if (loop) {
+          forward = false
+          timer = setTimeout(step, 900)
+        }
+      } else {
+        if (idx > 0) {
+          idx--
+          timer = setTimeout(step, Math.max(30, speed / 2))
+        } else {
+          forward = true
+          timer = setTimeout(step, 500)
+        }
+      }
+    }
+
+    step()
+    return () => {
+      mounted = false
+      if (timer) clearTimeout(timer)
+    }
+  }, [text, speed, loop])
+
+  return (
+    <span className="typing-text inline-flex items-center">
+      <span>{display}</span>
+      <span className="typing-cursor" aria-hidden="true" />
+    </span>
   )
 }
 
@@ -143,7 +190,7 @@ function Hero() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="mt-4 text-[clamp(1.25rem,4vw,2.5rem)] font-bold text-cyan-200 drop-shadow-[0_0_20px_rgba(34,211,238,0.2)]"
           >
-            Full Stack Developer
+            <TypingText text="Full Stack Developer" />
           </motion.p>
 
           {/* Professional description */}
@@ -153,7 +200,10 @@ function Hero() {
             transition={{ delay: 0.55, duration: 0.8 }}
             className="mt-6 max-w-xl text-base leading-8 text-slate-300 md:text-lg"
           >
-            Passionate about building modern, scalable, and user-focused web applications. I craft immersive digital experiences combining elegant design, powerful functionality, and cinematic interactions that engage and inspire.
+              <TypingText
+                text="Passionate about building modern, scalable, and user-focused web applications. I craft immersive digital experiences combining elegant design, powerful functionality, and cinematic interactions that engage and inspire."
+                speed={30}
+              />
           </motion.p>
 
           {/* CTA Buttons */}
