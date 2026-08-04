@@ -6,7 +6,7 @@ import { Float, Text } from '@react-three/drei'
 import type { Group } from 'three'
 
 const skills = [
-  { label: 'Full Stack', short: 'FS', color: '#10b981', angle: 0 },
+  { label: 'Frontend', short: 'FE', color: '#10b981', angle: 0 },
   { label: 'React', short: 'R', color: '#22d3ee', angle: 1.04 },
   { label: 'TypeScript', short: 'TS', color: '#60a5fa', angle: 2.08 },
   { label: 'Next.js', short: 'NX', color: '#f3f4f6', angle: 3.12 },

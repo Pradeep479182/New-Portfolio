@@ -156,7 +156,7 @@ function HologramProfile() {
           <meshBasicMaterial color="#f0abfc" transparent opacity={0.52} />
         </mesh>
         <Text position={[0, -1.36, 0.05]} fontSize={0.18} color="#e0f2fe" anchorX="center" anchorY="middle">
-          Full Stack
+          Frontend
         </Text>
       </group>
     </Float>
