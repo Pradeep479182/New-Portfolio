@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 
 interface PortraitDisplayProps {
@@ -6,30 +6,40 @@ interface PortraitDisplayProps {
   isLoaded: boolean
 }
 
+function mapRange(value: number, inMin: number, inMax: number, outMin: number, outMax: number) {
+  return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max)
+}
+
 export function PortraitDisplay({ portraitSrc, isLoaded }: PortraitDisplayProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLImageElement>(null)
 
   // Mouse tracking for parallax effect
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+  const rawRotateX = useMotionValue(0)
+  const rawRotateY = useMotionValue(0)
+  const rawX = useMotionValue(0)
+  const rawY = useMotionValue(0)
 
-  const rotateX = useSpring(useTransform(mouseY, [-1, 1], [15, -15]), {
+  const rotateX = useSpring(rawRotateX, {
     stiffness: 100,
     damping: 30,
   })
 
-  const rotateY = useSpring(useTransform(mouseX, [-1, 1], [-15, 15]), {
+  const rotateY = useSpring(rawRotateY, {
     stiffness: 100,
     damping: 30,
   })
 
-  const x = useSpring(useTransform(mouseX, [-1, 1], [-20, 20]), {
+  const x = useSpring(rawX, {
     stiffness: 120,
     damping: 35,
   })
 
-  const y = useSpring(useTransform(mouseY, [-1, 1], [-20, 20]), {
+  const y = useSpring(rawY, {
     stiffness: 120,
     damping: 35,
   })
@@ -42,16 +52,20 @@ export function PortraitDisplay({ portraitSrc, isLoaded }: PortraitDisplayProps)
       const centerX = rect.left + rect.width / 2
       const centerY = rect.top + rect.height / 2
 
-      const normalizedX = (event.clientX - centerX) / (rect.width / 2)
-      const normalizedY = (event.clientY - centerY) / (rect.height / 2)
+      const normalizedX = clamp((event.clientX - centerX) / (rect.width / 2), -1, 1)
+      const normalizedY = clamp((event.clientY - centerY) / (rect.height / 2), -1, 1)
 
-      mouseX.set(normalizedX)
-      mouseY.set(normalizedY)
+      rawX.set(normalizedX * 20)
+      rawY.set(normalizedY * 20)
+      rawRotateX.set(mapRange(normalizedY, -1, 1, 15, -15))
+      rawRotateY.set(mapRange(normalizedX, -1, 1, -15, 15))
     }
 
     const handleMouseLeave = () => {
-      mouseX.set(0)
-      mouseY.set(0)
+      rawX.set(0)
+      rawY.set(0)
+      rawRotateX.set(0)
+      rawRotateY.set(0)
     }
 
     const container = containerRef.current
@@ -66,7 +80,7 @@ export function PortraitDisplay({ portraitSrc, isLoaded }: PortraitDisplayProps)
         container.removeEventListener('mouseleave', handleMouseLeave)
       }
     }
-  }, [mouseX, mouseY])
+  }, [rawRotateX, rawRotateY, rawX, rawY])
 
   return (
     <motion.div

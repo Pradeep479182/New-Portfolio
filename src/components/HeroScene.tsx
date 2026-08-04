@@ -6,7 +6,7 @@ import { Float, Text, useTexture } from '@react-three/drei'
 import { LinearFilter, SRGBColorSpace } from 'three'
 import * as THREE from 'three'
 import type { Group, Mesh } from 'three'
-import profilePhoto from '../assets/photo1.jpeg'
+import profilePhoto from '../assets/Profile.jpeg'
 
 function MonitorRig() {
   const groupRef = useRef<Group>(null)

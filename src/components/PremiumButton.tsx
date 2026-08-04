@@ -62,7 +62,6 @@ export function PremiumButton({
           className={`absolute inset-0 rounded-full border ${
             isPrimary ? 'border-cyan-300' : 'border-slate-400'
           } opacity-0 group-hover:opacity-100`}
-          transition={{ duration: 0.3 }}
           animate={{
             boxShadow: [
               `inset 0 0 0px ${isPrimary ? 'rgba(34, 211, 238, 0)' : 'rgba(148, 163, 184, 0)'}`,

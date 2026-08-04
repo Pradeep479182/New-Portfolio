@@ -1,23 +1,20 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import { Suspense, useEffect, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion'
-import { Background } from './components/Background'
+import { Canvas } from '@react-three/fiber'
 import { HeroScene } from './components/HeroScene'
 import { Projects } from './components/Projects'
 import { SkillsScene } from './components/SkillsScene'
-import { Certificates } from './components/Certificates'
 import { PremiumLoader } from './components/PremiumLoader'
 import { PortraitDisplay } from './components/PortraitDisplay'
-import { AnimatedBackground } from './components/AnimatedBackground'
+import { Background } from './components/Background'
 import { PremiumButton } from './components/PremiumButton'
 import FloatingEmailButton from './components/FloatingEmailButton'
 import { CVButton } from './components/CVButton'
-import { LiquidBackground } from './components/LiquidBackground'
-import profilePhoto from './assets/photo1.jpeg'
+import profilePhoto from './assets/Profile.jpeg'
 
-const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Certificates', 'Contact']
+const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Contact']
 
 const experiences = [
   {
@@ -152,9 +149,6 @@ function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen overflow-hidden px-5 pt-28 md:px-8">
-      {/* Animated background with grid and particles */}
-      <AnimatedBackground />
-
       <div className="mx-auto grid min-h-[calc(100vh-7rem)] w-full max-w-7xl items-center gap-12 pb-16 lg:grid-cols-[0.94fr_1.06fr] relative z-10">
         {/* Left side: Text content */}
         <motion.div
@@ -190,7 +184,7 @@ function Hero() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="mt-4 text-[clamp(1.25rem,4vw,2.5rem)] font-bold text-cyan-200 drop-shadow-[0_0_20px_rgba(34,211,238,0.2)]"
           >
-            <TypingText text="Full Stack Developer" />
+            <TypingText text="Software Engineering Student | Frontend Developer" />
           </motion.p>
 
           {/* Professional description */}
@@ -481,6 +475,9 @@ function Contact() {
           <a className="glow-button" href="mailto:pradeeprakavi@gmail.com?subject=Let's%20Collaborate%20-%20Full%20Stack%20Project&body=Hi%20Pradeepan,%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20potential%20project.%0A%0APlease%20share%20your%20availability.%0A%0ABest%20regards">
             Email Pradeepan Rakavi
           </a>
+          <a className="glass-button" href="https://www.linkedin.com/in/pradeep-rakavi-27146b38b/" target="_blank" rel="noreferrer">
+            LinkedIn
+          </a>
           <a className="glass-button" href="https://github.com/Pradeep479182" target="_blank" rel="noreferrer">
             GitHub
           </a>
@@ -507,7 +504,6 @@ export default function App() {
       <CustomCursor />
       <FloatingEmailButton />
       <CVButton />
-      <LiquidBackground />
       <Background />
       <main className="relative z-10">
         <Hero />
@@ -515,7 +511,6 @@ export default function App() {
         <Skills />
         <Projects />
         <Experience />
-        <Certificates />
         <Contact />
       </main>
     </div>

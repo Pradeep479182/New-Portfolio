@@ -121,7 +121,7 @@ export function Avatar() {
         whileHover={{ opacity: 1, x: 0 }}
         className="absolute bottom-full right-0 mb-3 px-3 py-1.5 bg-slate-950/90 border border-cyan-400/30 rounded-lg whitespace-nowrap text-xs font-medium text-cyan-300 backdrop-blur-md pointer-events-none"
       >
-        Full Stack Developer
+        Software Engineering Student | Frontend Developer
       </motion.div>
     </motion.div>
   )

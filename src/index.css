@@ -808,6 +808,137 @@ canvas {
     50% { opacity: 0; }
   }
 
+  .animated-background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: #0b0b0b;
+  }
+
+  .animated-background__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,153,0.14) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,153,0.12) 1px, transparent 1px),
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 86px 86px, 86px 86px, 28px 28px, 28px 28px;
+    opacity: 0.22;
+    mix-blend-mode: screen;
+    transform: translateZ(0);
+  }
+
+  .animated-background__scanlines {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(0,255,153,var(--scan-alpha,0.12)) 1px, transparent 1px);
+    background-size: 100% 4px;
+    background-position: 0 var(--scan-position, 0%);
+    opacity: 0.34;
+    pointer-events: none;
+    will-change: background-position, opacity;
+  }
+
+  .animated-background__pulse {
+    position: absolute;
+    inset: auto auto auto auto;
+    left: 50%;
+    top: 50%;
+    width: 42rem;
+    height: 42rem;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,255,153,0.16) 0%, rgba(0,255,153,0.02) 58%, transparent 100%);
+    filter: blur(54px);
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .animated-background__halo {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 50% 22%, rgba(0,255,153,0.12), transparent 24rem),
+      radial-gradient(circle at 20% 18%, rgba(0,255,153,0.06), transparent 12rem);
+    mix-blend-mode: screen;
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  .animated-background__hud-panel {
+    position: absolute;
+    top: 4.5rem;
+    left: 4.5rem;
+    right: 4.5rem;
+    max-width: 68rem;
+    height: 7rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(0,255,153,0.12);
+    background: rgba(1, 9, 12, 0.36);
+    box-shadow: 0 0 68px rgba(0,255,153,0.05);
+    backdrop-filter: blur(22px);
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .animated-background__hud-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,153,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,153,0.05) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    opacity: 0.14;
+    pointer-events: none;
+  }
+
+  .animated-background__corner {
+    position: absolute;
+    width: 8rem;
+    height: 8rem;
+    border: 1px solid rgba(0,255,153,0.16);
+    box-shadow: 0 0 32px rgba(0,255,153,0.08);
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  .animated-background__corner--left {
+    top: 3rem;
+    left: 3rem;
+    border-radius: 0 0 0 1.6rem;
+  }
+
+  .animated-background__corner--right {
+    bottom: 4rem;
+    right: 3rem;
+    border-radius: 0 1.6rem 0 0;
+  }
+
+  .animated-background__shape {
+    position: absolute;
+    border: 1px solid rgba(0,255,153,0.16);
+    box-shadow: 0 0 26px rgba(0,255,153,0.18);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+  }
+
+  .animated-background__shape--circle {
+    border-radius: 50%;
+  }
+
+  .animated-background__shape--square {
+    border-radius: 1.2rem;
+  }
+
+  .animated-background__shape--triangle {
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    background: rgba(0,255,153,0.02);
+  }
+
   .certificate-icon svg {
     width: 1.6rem;
     height: 1.6rem;
