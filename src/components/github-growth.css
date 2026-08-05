@@ -1,0 +1,38 @@
+/* Scoped styles for GithubGrowth component */
+.particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.particles .particle{position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(96,165,250,0.06);box-shadow:0 0 24px 2px rgba(99,102,241,0.06);animation:float 12s linear infinite;opacity:0.9;transform:translate3d(0,0,0)}
+.particles .particle:nth-child(odd){background:rgba(139,92,246,0.06)}
+.particles .particle{top:calc(2% + 96% * var(--r));left:calc(2% + 96% * var(--l))}
+@keyframes float{0%{transform:translateY(0) translateX(0) scale(1)}50%{transform:translateY(-18px) translateX(6px) scale(1.05)}100%{transform:translateY(0) translateX(0) scale(1)}}
+
+.neon-card{position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);border-radius:16px}
+.neon-card:before{content:'';position:absolute;inset:-2px;border-radius:18px;padding:2px;background:linear-gradient(90deg,rgba(96,165,250,0.04),rgba(139,92,246,0.04));filter:blur(18px);opacity:0.85;mix-blend-mode:screen}
+.glass-stat{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(8px);border-radius:12px;display:flex;flex-direction:column;gap:6px;padding:12px}
+.glass-stat div{text-transform:none}
+
+.heatmap-shell{background:linear-gradient(180deg, rgba(2,8,18,0.88), rgba(6,10,16,0.95));border-radius:14px;box-shadow:inset 0 2px 24px rgba(0,0,0,0.5),0 16px 44px rgba(0,0,0,0.28)}
+.heatmap-grid{display:flex;gap:10px}
+.heatmap-week{display:grid;grid-auto-rows:16px;grid-template-rows:repeat(7,16px);gap:10px}
+.hg-square{width:16px;height:16px;border-radius:5px;background:#08131d;border:1px solid rgba(34,197,94,0.10);box-shadow:inset 0 1px 4px rgba(0,0,0,0.28);transform:translateZ(0);transition:transform 220ms cubic-bezier(.2,.9,.2,1),box-shadow 220ms,opacity 220ms,filter 220ms}
+.hg-square.active{background:linear-gradient(180deg, rgba(34,197,94,0.34), rgba(12,42,20,0.9));box-shadow:0 0 20px rgba(34,197,94,0.55),0 0 36px rgba(34,197,94,0.28),0 0 0 1px rgba(34,197,94,0.2),inset 0 1px 3px rgba(255,255,255,0.08);filter:saturate(1.4);animation:blink var(--blink-seconds,2.2s) infinite ease-in-out, pulse 2.6s infinite cubic-bezier(.2,.9,.2,1)}
+.hg-square.inactive{background:transparent}
+.hg-square.active:hover{transform:translateZ(40px) scale(1.55);box-shadow:0 22px 96px rgba(34,197,94,0.6),0 0 140px rgba(34,197,94,0.24)}
+.hg-square.active::after{content:'';position:absolute;width:56px;height:56px;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.7);background:radial-gradient(circle, rgba(34,197,94,0.4), rgba(34,197,94,0));opacity:0;transition:transform 300ms,opacity 300ms}
+@keyframes blink{0%{opacity:.18;filter:drop-shadow(0 0 12px rgba(34,197,94,0.2))}25%{opacity:.5;filter:drop-shadow(0 0 28px rgba(34,197,94,0.35))}50%{opacity:1;filter:drop-shadow(0 0 48px rgba(34,197,94,0.45))}75%{opacity:.56;filter:drop-shadow(0 0 30px rgba(34,197,94,0.32))}100%{opacity:.18;filter:drop-shadow(0 0 12px rgba(34,197,94,0.2))}}
+.hg-square.active:hover::after{opacity:1;transform:translate(-50%,-50%) scale(2.1)}
+@keyframes pulse{0%{transform:scale(1);filter:drop-shadow(0 0 0 rgba(34,197,94,0))}50%{transform:scale(1.02);filter:drop-shadow(0 0 20px rgba(34,197,94,0.12))}100%{transform:scale(1);filter:drop-shadow(0 0 0 rgba(34,197,94,0))}}
+
+.chart-shell{position:relative}
+.chart-shell::before{content:'';position:absolute;inset:-12%;background:radial-gradient(circle at 18% 30%, rgba(139,92,246,0.26), transparent 18%),radial-gradient(circle at 82% 22%, rgba(124,58,237,0.18), transparent 12%);pointer-events:none;opacity:0.4;filter:blur(20px);animation:purpleBlink 3.6s ease-in-out infinite}
+.glow-path{stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1200;stroke-dashoffset:1200;filter:drop-shadow(0 8px 30px rgba(124,58,237,0.18));animation:draw 4s linear infinite}
+@keyframes draw{0%{stroke-dashoffset:1200;opacity:0.35}50%{opacity:1}100%{stroke-dashoffset:0;opacity:0.95}}
+@keyframes purpleBlink{0%,100%{opacity:0.24;transform:scale(1)}50%{opacity:0.56;transform:scale(1.02)}}
+.data-point{fill:#c4b5fd;filter:drop-shadow(0 8px 18px rgba(124,58,237,0.14));transform-origin:center;animation:pointPulse 2.6s infinite ease-in-out}
+@keyframes pointPulse{0%{transform:scale(1);opacity:0.95}50%{transform:scale(1.4);opacity:1}100%{transform:scale(1);opacity:0.95}}
+.highlight{filter:drop-shadow(0 10px 34px rgba(124,58,237,0.22));opacity:0.95}
+.shimmer{position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.02),transparent);mix-blend-mode:overlay;pointer-events:none;animation:shimmer 6s linear infinite}
+@keyframes shimmer{0%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+
+.heatmap-shell .heatmap-grid{padding:6px}
+
+.hg-square{position:relative}

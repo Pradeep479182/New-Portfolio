@@ -1495,6 +1495,10 @@ video {
   background-color: rgb(2 4 11 / var(--tw-bg-opacity, 1));
 }
 
+.bg-\[\#07111f\]\/80 {
+  background-color: rgb(7 17 31 / 0.8);
+}
+
 .bg-\[\#07131f\] {
   --tw-bg-opacity: 1;
   background-color: rgb(7 19 31 / var(--tw-bg-opacity, 1));
@@ -2163,6 +2167,11 @@ video {
   line-height: 2rem;
 }
 
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
@@ -2262,6 +2271,10 @@ video {
   letter-spacing: 0.28em;
 }
 
+.tracking-\[0\.2em\] {
+  letter-spacing: 0.2em;
+}
+
 .tracking-\[0\.32em\] {
   letter-spacing: 0.32em;
 }
@@ -2308,6 +2321,10 @@ video {
 
 .text-cyan-200\/70 {
   color: rgb(165 243 252 / 0.7);
+}
+
+.text-cyan-200\/80 {
+  color: rgb(165 243 252 / 0.8);
 }
 
 .text-cyan-200\/90 {
@@ -2523,6 +2540,16 @@ video {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.ring-1 {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.ring-white\/5 {
+  --tw-ring-color: rgb(255 255 255 / 0.05);
 }
 
 .blur {
@@ -2864,6 +2891,10 @@ body {
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 768px) {
@@ -2981,6 +3012,10 @@ body {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
+  .lg\:grid-cols-\[0\.64fr_0\.36fr\] {
+    grid-template-columns: 0.64fr 0.36fr;
+  }
+
   .lg\:grid-cols-\[0\.78fr_1\.22fr\] {
     grid-template-columns: 0.78fr 1.22fr;
   }
@@ -2995,6 +3030,10 @@ body {
 
   .lg\:grid-cols-\[0\.94fr_1\.06fr\] {
     grid-template-columns: 0.94fr 1.06fr;
+  }
+
+  .lg\:grid-cols-\[0\.9fr_1\.1fr\] {
+    grid-template-columns: 0.9fr 1.1fr;
   }
 
   .lg\:grid-cols-\[1\.1fr_0\.9fr\] {

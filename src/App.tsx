@@ -6,7 +6,7 @@ import { Canvas } from '@react-three/fiber'
 import { HeroScene } from './components/HeroScene'
 import { Projects } from './components/Projects'
 import { SkillsScene } from './components/SkillsScene'
-import { GithubStats } from './components/GithubStats'
+import GithubGrowth from './components/GithubGrowth'
 import { PremiumLoader } from './components/PremiumLoader'
 import { PortraitDisplay } from './components/PortraitDisplay'
 import { Background } from './components/Background'
@@ -622,7 +622,7 @@ export default function App() {
         <Hero onViewCv={() => setIsCvOpen(true)} />
         <About />
         <Skills />
-        <GithubStats />
+        <GithubGrowth />
         <Projects />
         <Experience />
         <Contact />
