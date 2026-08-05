@@ -98,7 +98,7 @@ export const themes = {
       easing: 'ease-out',
     },
   },
-}
+} satisfies Record<string, NavbarTheme>
 
 /**
  * Hook to use a predefined theme
