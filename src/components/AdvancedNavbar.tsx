@@ -17,15 +17,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Menu,
   X,
-  Home,
   User,
   Code2,
   Briefcase,
   Award,
   MessageSquare,
-  Github,
-  Linkedin,
-  Twitter,
   Search,
   Sun,
   Moon,
@@ -55,12 +51,6 @@ export function AdvancedNavbar() {
     { label: 'Experience', href: '#experience', icon: <Briefcase size={18} /> },
     { label: 'Certificates', href: '#certificates', icon: <Award size={18} /> },
     { label: 'Contact', href: '#contact', icon: <MessageSquare size={18} /> },
-  ]
-
-  const socialLinks = [
-    { icon: <Github size={20} />, href: '#', label: 'GitHub' },
-    { icon: <Linkedin size={20} />, href: '#', label: 'LinkedIn' },
-    { icon: <Twitter size={20} />, href: '#', label: 'Twitter' },
   ]
 
   // Scroll tracking
@@ -248,7 +238,7 @@ export function AdvancedNavbar() {
                   type="text"
                   placeholder="Search..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
                   className={`${
                     isSearchActive ? 'w-40' : 'w-10'
                   } h-10 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-white placeholder:text-white/40 pl-3 pr-3 transition-all duration-300 focus:outline-none`}
